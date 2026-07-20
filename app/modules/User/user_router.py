@@ -19,5 +19,5 @@ async def delete_user(user_id:str):
     return await userObj.delete_a_user(user_id)
 
 @userRouter.patch("/")
-async def update_user(user:UserSchema):
-    return await userObj.update_old_user(user)
+async def update_user(user_data:UserSchema):
+    return await userObj.update_old_user(user_data.id,user_data)

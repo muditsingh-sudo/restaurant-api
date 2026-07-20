@@ -19,6 +19,15 @@ class User_Services:
         await user.save()
         return {"message":"user is now inactive"}   
     
-    async def update_old_user(self,updatedUser):
-        return await User.filter(id=updatedUser.id).update(**updatedUser.dict())
+    async def update_old_user(self, id: int, user_data: UserSchema):       
+        user = await User.get_or_none(id=id)
+        if not user:
+          raise HTTPException(status_code=404, detail="User not found")
+    
+        update_payload = user_data.dict(exclude_unset=True)
+        user.update_from_dict(update_payload)
+        await user.save()
+    
+        return user
+
         
