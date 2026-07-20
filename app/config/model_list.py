@@ -1,0 +1,1 @@
+models=["app.modules.User.user_model","aerich.models"]
