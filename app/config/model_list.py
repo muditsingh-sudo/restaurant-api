@@ -1,1 +1,1 @@
-models=["app.modules.User.user_model","aerich.models"]
+models=["app.modules.User.model","aerich.models"]
