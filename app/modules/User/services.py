@@ -34,20 +34,15 @@ class User_Services:
     
     async def delete_a_user(self,id:int):
         """This function is used to soft delete a user"""
-        try:
-            user = await User.get_or_none(id=id)
 
-            if(not user):
-                raise HTTPException(status_code=404 , detail="user id donot exist")
+        user = await User.get_or_none(id=id)
 
-            if(not user.isActive):
-                return {"message":"user is already inactive"}
+        if(not user or not user.isActive):
+            raise HTTPException(status_code=404 , detail="user id donot exist")
         
-            user.isActive=False
-            await user.save()
-            return {"message":"user is now inactive"}   
-        except Exception as e:
-            raise HTTPException(status_code=404 , detail = str(e))
+        user.isActive=False
+        await user.save()
+        return {"message":"user is now inactive"}   
     
     async def update_old_user(self, id: int, user_data : UserUpdate):      
         """This function is used to update and existing user"""
@@ -57,11 +52,8 @@ class User_Services:
         if not user:
             raise HTTPException(status_code=400, detail="User not found")
         
-        try:
-            update_payload = user_data.model_dump(exclude_unset=True)
-            user.update_from_dict(update_payload)
-            await user.save()
-            return user
-        except Exception as e:
-            raise HTTPException(status_code=400 , detail=str(e))
+        update_payload = user_data.model_dump(exclude_unset=True)
+        user.update_from_dict(update_payload)
+        await user.save()
+        return user
         
