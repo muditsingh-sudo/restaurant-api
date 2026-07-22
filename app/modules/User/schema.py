@@ -24,5 +24,6 @@ class UserUpdate(BaseModel):
     isActive:bool | None = None
 
 class UserOut(User):
+    id:int
     pass
 

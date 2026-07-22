@@ -1,6 +1,8 @@
 from app.modules.User.model import User
 from app.modules.User.schema import UserCreate , UserUpdate
 
+from app.core.security import hash_password
+
 from fastapi import HTTPException
 
 class User_Services:
@@ -9,13 +11,13 @@ class User_Services:
     async def get_all_user(self):
         """This function returns all the users in the DB"""
         try:
-            return User.all()
+            return await User.all()
         except Exception:
             raise HTTPException(status_code=500 , detail="Error fetching data")
     
-    async def get_user_by_id(self, id:int):
+    async def get_user_by_id(self, id:str):
         try:
-            user = await User.get(id=id)
+            user = await User.get(email=id)
             return user
         except Exception:
             raise HTTPException(status_code=500 , detail="User not found")
@@ -26,9 +28,11 @@ class User_Services:
 
         if(duplicate):
             raise HTTPException(status_code=400 , detail="User already exist")
+
+        user.password = hash_password(user.password)
             
         try:
-            return await User.create(**user.dict())
+            return await User.create(**user.model_dump())
         except Exception as e:
             raise HTTPException(status_code=400,detail= "given data is worong")
     

@@ -2,3 +2,18 @@
 tortoise_orm = "app.config.TORTOISE_ORM.TORTOISE_ORM"
 location = "./migrations"
 src_folder = "./."
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+asyncio_mode = "auto"
+asyncio_default_fixture_loop_scope = "session"
+addopts = "-v --tb=short"
+testpaths = ["test"]
+filterwarnings = [
+    "ignore::DeprecationWarning",
+    # Suppress the loop switch warnings from Tortoise test context
+    "ignore:.*reconnected.*:UserWarning",
+    # Blocks Pytest from elevating trailing teardown logs to failures
+    "ignore:.*Event loop is closed:",
+    "ignore:.*SSL transport:"
+]
