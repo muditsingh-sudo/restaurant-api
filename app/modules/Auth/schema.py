@@ -4,3 +4,7 @@ class Login_Schema(BaseModel):
     email:str
     name:str
     password:str
+
+class Login_result(BaseModel):
+    accessToken:str
+    refreshToken:str
