@@ -23,3 +23,4 @@ class menu_update(BaseModel):
     info: str | None = None
     price: int | None = Field(default=None, gte=0)
     availability: int | None = Field(default=None, gte=0)
+ 
