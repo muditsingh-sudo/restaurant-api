@@ -1,9 +1,9 @@
-from app.modules.User.schema import UserCreate , UserOut ,  UserUpdate
-from app.modules.User.services import User_Services 
-
-from fastapi import APIRouter , Depends
-
 from typing import Annotated
+
+from fastapi import APIRouter, Depends
+
+from app.modules.User.schema import UserCreate, UserOut, UserUpdate
+from app.modules.User.services import User_Services
 
 userRouter = APIRouter(prefix="/user" , tags=["user"])
 
@@ -12,7 +12,7 @@ async def read_users(user_dependency:Annotated[User_Services , Depends(User_Serv
     return await user_dependency.get_all_user()
 
 @userRouter.get("/{id}" , response_model=UserOut)
-async def read_user_by_id(id:str,user_dependency:Annotated[User_Services , Depends(User_Services)]):
+async def read_user_by_id(id:int,user_dependency:Annotated[User_Services , Depends(User_Services)]):
     return await user_dependency.get_user_by_id(id)
 
 @userRouter.post("/", response_model=UserOut)

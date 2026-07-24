@@ -1,6 +1,8 @@
 import os
-from fastapi import FastAPI
+
 from dotenv import load_dotenv
+from fastapi import FastAPI
+
 from app.config.connectDB import create_database_connection
 from app.routes.routes import router
 
