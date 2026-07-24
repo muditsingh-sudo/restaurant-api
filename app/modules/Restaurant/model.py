@@ -31,3 +31,4 @@ class Menu(Model):
 
     class Meta:
         table = "menu_items"
+        
