@@ -1,9 +1,11 @@
-import pytest
 import asyncio
 import warnings
-from httpx import AsyncClient, ASGITransport
+
+import pytest
+from httpx import ASGITransport, AsyncClient
 from tortoise import Tortoise
-from app.main import app 
+
+from app.main import app
 
 TEST_DB_URL = "postgres://Mudit:Hello123@localhost:5432/test_user_db"
 

@@ -1,4 +1,5 @@
-from tortoise import Model,fields
+from tortoise import Model, fields
+
 
 class User(Model):
     """This is a Model which defines the schema of the users table"""
